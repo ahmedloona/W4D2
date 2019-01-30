@@ -1,0 +1,47 @@
+<% if action == :edit%>
+<% form_url = cat_url(cat) %>
+<% else%>
+<% form_url = cats_url %>
+<% end %>
+<form action=<%=form_url%> method="post">
+<% if action == :edit %>
+<input type="hidden" name="_method" value="patch">
+<%end%>
+<label for="cat_name"> Enter cat name </label>
+<input id="cat_name" type="text" name="cat[name]" value="<%=cat.name%>">
+
+<br>
+
+<label for="birth_date"> Enter birth_date </label>
+<input id="birth_date" type="date" name="cat[birth_date]" value="<%=cat.birth_date%>">
+<br>
+<p>Select sex</p>
+<select name="cat[sex]">
+  <%if cat.sex == "F"%>
+    <option value="M"> Male </option>
+    <option selected value="F"> Female </option>
+  <%else%>
+    <option selected value="M"> Male </option>
+    <option value="F"> Female </option>
+  <%end%>
+</select>
+<br>
+
+<p>Select color</p>
+<select name="cat[color]"> 
+<% Cat.colors.each do |color| %>
+ <%if color == cat.color%>
+ <option value=<%=color%> selected=<%=color%>> <%=color%> </option>
+ <%else%>
+ <option value=<%=color%>> <%=color%> </option>
+ <%end%>
+<% end %>
+</select>
+ <br>
+<label for="description"> Enter description </label>
+<textarea id="description" name="cat[description]">
+  <%=cat.description%>
+</textarea>
+<br>
+<input type="submit" value="update the cat">
+</form>
